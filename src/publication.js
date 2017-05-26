@@ -3,7 +3,7 @@
  * ######################################################################################
  * # LGPL License                                                                       #
  * #                                                                                    #
- * # This file is part of the jQuery BibJSON Publication Plugin                         #
+ * # This file is part of the jQuery BibJSON                                            #
  * # Copyright (c) 2017, Philipp Kraus (philipp.kraus@flashpixx.de)                     #
  * # This program is free software: you can redistribute it and/or modify               #
  * # it under the terms of the GNU Lesser General Public License as                     #
