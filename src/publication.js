@@ -3,7 +3,7 @@
  * ######################################################################################
  * # LGPL License                                                                       #
  * #                                                                                    #
- * # This file is part of the jQuery BibJSON                                            #
+ * # This file is part of the jQuery BibJSON Publication Plugin                         #
  * # Copyright (c) 2017, Philipp Kraus (philipp.kraus@flashpixx.de)                     #
  * # This program is free software: you can redistribute it and/or modify               #
  * # it under the terms of the GNU Lesser General Public License as                     #
@@ -55,11 +55,18 @@
         bibjson : null,
         bibtex : null,
 
+        // CSS classes
+        csshidden : "hidden",
+        cssentry  : "publication",
+
         // format callbacks
         callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
         callbackFormatTitle : function ( po ) { var lo = jQuery('<span class="title">'); lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); return lo; },
         callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given + " " + po_item.family; } ).join(", ") + ")" ); return lo; },
         callbackFormatBibtex : null,
+
+        // callback for ID generator
+        callbackIDGenerator : function( po_this ) { var l_id = po_this.dom.attr("id"); if ( !l_id ) throw new Error( "parent object needs an id attribute" ); return function(i) { return l_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; },
 
         // filter callback
         callbackFilter : function( po, pa_search ) { return pa_search.every(function(i){ return po.title.toLowerCase().indexOf( i.toLowerCase() ) != -1; }); },
@@ -119,7 +126,28 @@
          * @param pc_filter filter string (will be split on any space) / empty or null value resets the filter
          */
         filter : function( pc_filter ) {
-            processdata( this, pc_filter );
+            var self = this;
+            
+            var lo_generator = typeof( self.settings.callbackIDGenerator ) === "function"
+                               ? self.settings.callbackIDGenerator( self )
+                               : function() { return ""; }; 
+            
+            var lo_filter = pc_filter && ( typeof( self.settings.callbackFilter ) === "function" ) 
+                            ? function(po) { return self.settings.callbackFilter( po, pc_filter.split(/(\s+)/).filter( function(i) { return i.trim().length > 0; } ) ) } 
+                            : function() { return true; } 
+            
+
+            this.bibjson.forEach(function(i) {
+                var l_id = lo_generator( i.id );
+                if ( !l_id )
+                    return;
+
+                if ( lo_filter( i ) )
+                    jQuery( "#" + l_id ).removeClass( self.settings.csshidden );
+                else
+                    jQuery( "#" + l_id ).addClass( self.settings.csshidden );    
+            });
+
             return this;
         },
 
@@ -163,16 +191,12 @@
      */
     var processdata = function ( po_this, pc_filter )
     {
-        po_this.dom.empty();
+        var lo_generator = typeof(po_this.settings.callbackIDGenerator) === "function"
+                           ? po_this.settings.callbackIDGenerator( po_this )
+                           : undefined; 
 
+        po_this.dom.empty();
         po_this.bibjson
-        
-        // filter data
-        .filter( 
-            pc_filter && ( typeof( po_this.settings.callbackFilter ) === "function" ) 
-            ? function(po) { return po_this.settings.callbackFilter( po, pc_filter.split(/(\s+)/).filter( function(i) { return i.trim().length > 0; } ) ) } 
-            : function() { return true; } 
-        )
 
         // sort data
         .sort(
@@ -184,7 +208,7 @@
         // create list with meta-data
         .forEach(function( po_item ) {
            //console.log( po_item );
-           po_this.dom.append( format_entry( po_this, po_item ) ); 
+           po_this.dom.append( format_entry( po_this, po_item, lo_generator ) ); 
         });
 
         if ( typeof( po_this.settings.callbackFinish ) === "function" )
@@ -197,13 +221,20 @@
      * 
      * @param po_this plugin reference 
      * @param po_item BibJSON object
+     * @param po_idgenerator generator function for CSS IDs
      * @return DOM entry
      */
-    var format_entry = function ( po_this, po_item ) {
+    var format_entry = function ( po_this, po_item, po_idgenerator ) {
         if ( typeof(po_this.settings.callbackFormatEntry) !== "function" )
             return;
 
         var lo_item = po_this.settings.callbackFormatEntry( po_item );
+
+        if ( po_this.settings.cssentry )
+            lo_item.addClass( po_this.settings.cssentry );
+
+        if ( typeof(po_idgenerator) === "function" )
+            lo_item.attr( "id", po_idgenerator( po_item.id ) );
 
         if ( typeof(po_this.settings.callbackFormatTitle) === "function" )
             lo_item.append( po_this.settings.callbackFormatTitle( po_item ) );
