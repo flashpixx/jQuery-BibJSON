@@ -1,0 +1,1265 @@
+[
+  {
+    "author": [
+      {
+        "family": "Santos",
+        "given": "Fernando"
+      },
+      {
+        "family": "Nunes",
+        "given": "Ingrid"
+      },
+      {
+        "family": "Bazzan",
+        "given": "Ana LC"
+      }
+    ],
+    "container-title": "Proceedings of the 16th Conference on Autonomous Agents and MultiAgent Systems",
+    "id": "santos2017model",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "page": "1725-1727",
+    "publisher": "International Foundation for Autonomous Agents; Multiagent Systems",
+    "title": "Model-driven engineering in agent-based modeling and simulation: a case study in the traffic signal control domain",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Moreira",
+        "given": "Deividi"
+      },
+      {
+        "family": "Santos",
+        "given": "Fernando"
+      },
+      {
+        "family": "Barbieri",
+        "given": "Matheus"
+      },
+      {
+        "family": "Nunes",
+        "given": "Ingrid"
+      },
+      {
+        "family": "Bazzan",
+        "given": "Ana LC"
+      }
+    ],
+    "container-title": "Proceedings of the 16th Conference on Autonomous Agents and MultiAgent Systems",
+    "id": "moreira2017abstractme",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "page": "1802-1804",
+    "publisher": "International Foundation for Autonomous Agents; Multiagent Systems",
+    "title": "ABStractme: Modularized Environment Modeling in Agent-based Simulations",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Cardoso",
+        "given": "Rafael C"
+      },
+      {
+        "family": "Pereira",
+        "given": "Ramon Fraga"
+      },
+      {
+        "family": "Krzisch",
+        "given": "Guilherme"
+      },
+      {
+        "family": "Magnaguagno",
+        "given": "Maurício C"
+      },
+      {
+        "family": "Baségio",
+        "given": "Túlio"
+      },
+      {
+        "family": "Meneguzzi",
+        "given": "Felipe"
+      }
+    ],
+    "id": "cardosoteam",
+    "title": "Team PUCRS: a Decentralised Multi-Agent Solution for the Agents in the City Scenario",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Risco-Martín",
+        "given": "José L"
+      },
+      {
+        "family": "Mittal",
+        "given": "Saurabh"
+      },
+      {
+        "family": "Fabero Jiménez",
+        "given": "Juan Carlos"
+      },
+      {
+        "family": "Zapater",
+        "given": "Marina"
+      },
+      {
+        "family": "Hermida Correa",
+        "given": "Román"
+      }
+    ],
+    "container-title": "SIMULATION",
+    "id": "risco2017reconsidering",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "page": "0037549717690447",
+    "publisher": "SAGE Publications Sage UK: London, England",
+    "title": "Reconsidering the performance of DEVS modeling and simulation environments using the DEVStone benchmark",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Verhoog",
+        "given": "Reinier"
+      },
+      {
+        "family": "Ghorbani",
+        "given": "Amineh"
+      },
+      {
+        "family": "Hardi",
+        "given": "Esther E"
+      },
+      {
+        "family": "Dijkema",
+        "given": "Gerard PJ"
+      },
+      {
+        "family": "Weijnen",
+        "given": "Margot PC"
+      }
+    ],
+    "container-title": "International Journal of Complexity in Applied Science and Technology",
+    "id": "verhoog2016structuring",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "5-21",
+    "publisher": "Inderscience Publishers (IEL)",
+    "title": "Structuring socio-technical complexity in infrastructure systems: an agent-based model",
+    "type": "article-journal",
+    "volume": "1"
+  },
+  {
+    "author": [
+      {
+        "family": "Dastani",
+        "given": "Mehdi"
+      },
+      {
+        "family": "Testerink",
+        "given": "Bas"
+      }
+    ],
+    "container-title": "International Journal of Agent-Oriented Software Engineering",
+    "id": "dastani2016design",
+    "issue": "2-3",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "167-202",
+    "publisher": "Inderscience Publishers (IEL)",
+    "title": "Design patterns for multi-agent programming",
+    "type": "article-journal",
+    "volume": "5"
+  },
+  {
+    "author": [
+      {
+        "family": "Bahle",
+        "given": "Gernot"
+      },
+      {
+        "family": "Poxrucker",
+        "given": "Andreas"
+      },
+      {
+        "family": "Kampis",
+        "given": "George"
+      },
+      {
+        "family": "Lukowicz",
+        "given": "Paul"
+      }
+    ],
+    "container-title": "Proceedings of the International Conference on Electronic Governance and Open Society: Challenges in Eurasia",
+    "id": "bahle2016incremental",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "35-40",
+    "publisher": "ACM",
+    "title": "Incremental classifier fusion for smart societies",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Mittal",
+        "given": "Saurabh"
+      },
+      {
+        "family": "Risco-Martín",
+        "given": "José L"
+      }
+    ],
+    "container-title": "Proceedings of the Summer Computer Simulation Conference",
+    "id": "mittal2016devsml",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "41",
+    "publisher": "Society for Computer Simulation International",
+    "title": "DEVSML studio: a framework for integrating domain-specific languages for discrete and continuous hybrid systems into DEVS-based m&s environment",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Zatelli",
+        "given": "Maicon Rafael"
+      },
+      {
+        "family": "Hübner",
+        "given": "Jomi Fred"
+      },
+      {
+        "family": "Ricci",
+        "given": "Alessandro"
+      },
+      {
+        "family": "Bordini",
+        "given": "Rafael H"
+      }
+    ],
+    "container-title": "Proceedings of the 6th International Workshop on Programming Based on Actors, Agents, and Decentralized Control",
+    "id": "zatelli2016conflicting",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "21-30",
+    "publisher": "ACM",
+    "title": "Conflicting goals in agent-oriented programming",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Jensen",
+        "given": "Thorben"
+      },
+      {
+        "family": "Chappin",
+        "given": "Émile JL"
+      }
+    ],
+    "id": "jensen2016agent",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "title": "Agent-based modeling automated: data-driven generation of innovation diffusion models",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "WaiShiang",
+        "given": "Cheah"
+      },
+      {
+        "family": "YeeWai",
+        "given": "Sim"
+      },
+      {
+        "family": "Nizam",
+        "given": "Shane"
+      },
+      {
+        "family": "CheeWyai",
+        "given": "Loh"
+      }
+    ],
+    "container-title": "Journal of Telecommunication, Electronic and Computer Engineering (JTEC)",
+    "id": "waishiang2016agent",
+    "issue": "2",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "5-10",
+    "title": "Agent oriented requirement engineering for lake mathematical modelling: Preliminary study",
+    "type": "article-journal",
+    "volume": "8"
+  },
+  {
+    "author": [
+      {
+        "family": "Melo",
+        "given": "Victor S"
+      },
+      {
+        "family": "Panisson",
+        "given": "Alison R"
+      },
+      {
+        "family": "Bordini",
+        "given": "Rafael H"
+      }
+    ],
+    "container-title": "Proceedings of the 2016 International Conference on Autonomous Agents & Multiagent Systems",
+    "id": "melo2016argumentation",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "1337-1338",
+    "publisher": "International Foundation for Autonomous Agents; Multiagent Systems",
+    "title": "Argumentation-based reasoning using preferences over sources of information",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Sethia",
+        "given": "Prashant"
+      },
+      {
+        "family": "Karlapalem",
+        "given": "Kamalakar"
+      }
+    ],
+    "container-title": "Engineering Applications of Artificial Intelligence",
+    "id": "sethia2011multi",
+    "issue": "7",
+    "issued": {
+      "date-parts": [
+        [
+          2011
+        ]
+      ]
+    },
+    "page": "1120-1127",
+    "publisher": "Elsevier",
+    "title": "A multi-agent simulation framework on small Hadoop cluster",
+    "type": "article-journal",
+    "volume": "24"
+  },
+  {
+    "author": [
+      {
+        "family": "Essa",
+        "given": "Youssef M"
+      },
+      {
+        "family": "Attiya",
+        "given": "Gamal"
+      },
+      {
+        "family": "El-Sayed",
+        "given": "Ayman"
+      }
+    ],
+    "container-title": "Cloud Computing and Big Data (CloudCom-Asia), 2013 International Conference on",
+    "id": "essa2013mobile",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "page": "381-386",
+    "publisher": "IEEE",
+    "title": "Mobile agent based new framework for improving big data analysis",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Thusoo",
+        "given": "Ashish"
+      },
+      {
+        "family": "Sarma",
+        "given": "Joydeep Sen"
+      },
+      {
+        "family": "Jain",
+        "given": "Namit"
+      },
+      {
+        "family": "Shao",
+        "given": "Zheng"
+      },
+      {
+        "family": "Chakka",
+        "given": "Prasad"
+      },
+      {
+        "family": "Zhang",
+        "given": "Ning"
+      },
+      {
+        "family": "Antony",
+        "given": "Suresh"
+      },
+      {
+        "family": "Liu",
+        "given": "Hao"
+      },
+      {
+        "family": "Murthy",
+        "given": "Raghotham"
+      }
+    ],
+    "container-title": "Data Engineering (ICDE), 2010 IEEE 26th International Conference on",
+    "id": "thusoo2010hive",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "page": "996-1005",
+    "publisher": "IEEE",
+    "title": "Hive-a petabyte scale data warehouse using hadoop",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Bauer",
+        "given": "Bernhard"
+      },
+      {
+        "family": "Müller",
+        "given": "Jörg P"
+      },
+      {
+        "family": "Odell",
+        "given": "James"
+      }
+    ],
+    "container-title": "International journal of software engineering and knowledge engineering",
+    "id": "bauer2001agent",
+    "issue": "03",
+    "issued": {
+      "date-parts": [
+        [
+          2001
+        ]
+      ]
+    },
+    "page": "207-230",
+    "publisher": "World Scientific",
+    "title": "Agent UML: A formalism for specifying multiagent software systems",
+    "type": "article-journal",
+    "volume": "11"
+  },
+  {
+    "author": [
+      {
+        "family": "Odell",
+        "given": "James J"
+      },
+      {
+        "family": "Parunak",
+        "given": "H Van Dyke"
+      },
+      {
+        "family": "Bauer",
+        "given": "Bernhard"
+      }
+    ],
+    "container-title": "Agent-oriented software engineering",
+    "id": "odell2001representing",
+    "issued": {
+      "date-parts": [
+        [
+          2001
+        ]
+      ]
+    },
+    "page": "121-140",
+    "publisher": "Springer",
+    "title": "Representing agent interaction protocols in UML",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Bauer",
+        "given": "Bernhard"
+      },
+      {
+        "family": "Odell",
+        "given": "James"
+      }
+    ],
+    "container-title": "Engineering applications of artificial intelligence",
+    "id": "bauer2005uml",
+    "issue": "2",
+    "issued": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "page": "141-157",
+    "publisher": "Elsevier",
+    "title": "UML 2.0 and agents: how to build agent-based systems with the new UML standard",
+    "type": "article-journal",
+    "volume": "18"
+  },
+  {
+    "author": [
+      {
+        "family": "Huget",
+        "given": "Marc-Philippe"
+      }
+    ],
+    "container-title": "Net. ObjectDays: International Conference on Object-Oriented and Internet-Based Technologies, Concepts, and Applications for a Networked World",
+    "id": "huget2002agent",
+    "issued": {
+      "date-parts": [
+        [
+          2002
+        ]
+      ]
+    },
+    "page": "49-60",
+    "publisher": "Springer",
+    "title": "Agent UML class diagrams revisited",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Grimm",
+        "given": "Volker"
+      },
+      {
+        "family": "Revilla",
+        "given": "Eloy"
+      },
+      {
+        "family": "Berger",
+        "given": "Uta"
+      },
+      {
+        "family": "Jeltsch",
+        "given": "Florian"
+      },
+      {
+        "family": "Mooij",
+        "given": "Wolf M"
+      },
+      {
+        "family": "Railsback",
+        "given": "Steven F"
+      },
+      {
+        "family": "Thulke",
+        "given": "Hans-Hermann"
+      },
+      {
+        "family": "Weiner",
+        "given": "Jacob"
+      },
+      {
+        "family": "Wiegand",
+        "given": "Thorsten"
+      },
+      {
+        "family": "DeAngelis",
+        "given": "Donald L"
+      }
+    ],
+    "container-title": "science",
+    "id": "grimm2005pattern",
+    "issue": "5750",
+    "issued": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "page": "987-991",
+    "publisher": "American Association for the Advancement of Science",
+    "title": "Pattern-oriented modeling of agent-based complex systems: lessons from ecology",
+    "type": "article-journal",
+    "volume": "310"
+  },
+  {
+    "author": [
+      {
+        "family": "Macal",
+        "given": "Charles M"
+      },
+      {
+        "family": "North",
+        "given": "Michael J"
+      }
+    ],
+    "container-title": "Journal of simulation",
+    "id": "macal2010tutorial",
+    "issue": "3",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "page": "151-162",
+    "publisher": "Springer",
+    "title": "Tutorial on agent-based modelling and simulation",
+    "type": "article-journal",
+    "volume": "4"
+  },
+  {
+    "author": [
+      {
+        "family": "Ferber",
+        "given": "Jacques"
+      },
+      {
+        "family": "Gutknecht",
+        "given": "Olivier"
+      }
+    ],
+    "container-title": "Multi Agent Systems, 1998. Proceedings. International Conference on",
+    "id": "ferber1998meta",
+    "issued": {
+      "date-parts": [
+        [
+          1998
+        ]
+      ]
+    },
+    "page": "128-135",
+    "publisher": "IEEE",
+    "title": "A meta-model for the analysis and design of organizations in multi-agent systems",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Wooldridge",
+        "given": "Michael"
+      },
+      {
+        "family": "Jennings",
+        "given": "Nicholas R"
+      }
+    ],
+    "container-title": "The knowledge engineering review",
+    "id": "wooldridge1995intelligent",
+    "issue": "02",
+    "issued": {
+      "date-parts": [
+        [
+          1995
+        ]
+      ]
+    },
+    "page": "115-152",
+    "publisher": "Cambridge Univ Press",
+    "title": "Intelligent agents: Theory and practice",
+    "type": "article-journal",
+    "volume": "10"
+  },
+  {
+    "author": [
+      {
+        "family": "Grimm",
+        "given": "Volker"
+      },
+      {
+        "family": "Berger",
+        "given": "Uta"
+      },
+      {
+        "family": "Bastiansen",
+        "given": "Finn"
+      },
+      {
+        "family": "Eliassen",
+        "given": "Sigrunn"
+      },
+      {
+        "family": "Ginot",
+        "given": "Vincent"
+      },
+      {
+        "family": "Giske",
+        "given": "Jarl"
+      },
+      {
+        "family": "Goss-Custard",
+        "given": "John"
+      },
+      {
+        "family": "Grand",
+        "given": "Tamara"
+      },
+      {
+        "family": "Heinz",
+        "given": "Simone K"
+      },
+      {
+        "family": "Huse",
+        "given": "Geir"
+      },
+      {
+        "literal": "others"
+      }
+    ],
+    "container-title": "Ecological modelling",
+    "id": "grimm2006standard",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          2006
+        ]
+      ]
+    },
+    "page": "115-126",
+    "publisher": "Elsevier",
+    "title": "A standard protocol for describing individual-based and agent-based models",
+    "type": "article-journal",
+    "volume": "198"
+  },
+  {
+    "author": [
+      {
+        "family": "Parunak",
+        "given": "H Van Dyke"
+      },
+      {
+        "family": "Savit",
+        "given": "Robert"
+      },
+      {
+        "family": "Riolo",
+        "given": "Rick L"
+      }
+    ],
+    "container-title": "International Workshop on Multi-Agent Systems and Agent-Based Simulation",
+    "id": "parunak1998agent",
+    "issued": {
+      "date-parts": [
+        [
+          1998
+        ]
+      ]
+    },
+    "page": "10-25",
+    "publisher": "Springer",
+    "title": "Agent-based modeling vs. equation-based modeling: A case study and users’ guide",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Dunn",
+        "given": "Kenneth B"
+      },
+      {
+        "family": "Singleton",
+        "given": "Kenneth J"
+      }
+    ],
+    "container-title": "Journal of Financial Economics",
+    "id": "dunn1986modeling",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          1986
+        ]
+      ]
+    },
+    "page": "27-55",
+    "publisher": "Elsevier",
+    "title": "Modeling the term structure of interest rates under non-separable utility and durability of goods",
+    "type": "article-journal",
+    "volume": "17"
+  },
+  {
+    "author": [
+      {
+        "family": "Shelby",
+        "given": "Zach"
+      },
+      {
+        "family": "Hartke",
+        "given": "Klaus"
+      },
+      {
+        "family": "Bormann",
+        "given": "Carsten"
+      }
+    ],
+    "id": "shelby2014constrained",
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "title": "The constrained application protocol (CoAP)",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Bormann",
+        "given": "Carsten"
+      },
+      {
+        "family": "Castellani",
+        "given": "Angelo P"
+      },
+      {
+        "family": "Shelby",
+        "given": "Zach"
+      }
+    ],
+    "container-title": "IEEE Internet Computing",
+    "id": "bormann2012coap",
+    "issue": "2",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "page": "62-67",
+    "publisher": "IEEE",
+    "title": "Coap: An application protocol for billions of tiny internet nodes",
+    "type": "article-journal",
+    "volume": "16"
+  },
+  {
+    "author": [
+      {
+        "family": "Kovatsch",
+        "given": "Matthias"
+      },
+      {
+        "family": "Duquennoy",
+        "given": "Simon"
+      },
+      {
+        "family": "Dunkels",
+        "given": "Adam"
+      }
+    ],
+    "container-title": "Mobile Adhoc and Sensor Systems (MASS), 2011 IEEE 8th International Conference on",
+    "id": "kovatsch2011low",
+    "issued": {
+      "date-parts": [
+        [
+          2011
+        ]
+      ]
+    },
+    "page": "855-860",
+    "publisher": "IEEE",
+    "title": "A low-power CoAP for Contiki",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Raza",
+        "given": "Shahid"
+      },
+      {
+        "family": "Shafagh",
+        "given": "Hossein"
+      },
+      {
+        "family": "Hewage",
+        "given": "Kasun"
+      },
+      {
+        "family": "Hummen",
+        "given": "René"
+      },
+      {
+        "family": "Voigt",
+        "given": "Thiemo"
+      }
+    ],
+    "container-title": "IEEE Sensors Journal",
+    "id": "raza2013lithe",
+    "issue": "10",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "page": "3711-3720",
+    "publisher": "IEEE",
+    "title": "Lithe: Lightweight secure CoAP for the internet of things",
+    "type": "article-journal",
+    "volume": "13"
+  },
+  {
+    "author": [
+      {
+        "family": "Kalyanpur",
+        "given": "Aditya"
+      },
+      {
+        "family": "Pastor",
+        "given": "Daniel Jiménez"
+      },
+      {
+        "family": "Battle",
+        "given": "Steve"
+      },
+      {
+        "family": "Padget",
+        "given": "Julian A"
+      }
+    ],
+    "container-title": "SEKE",
+    "id": "kalyanpur2004automatic",
+    "issued": {
+      "date-parts": [
+        [
+          2004
+        ]
+      ]
+    },
+    "page": "98-103",
+    "publisher": "Citeseer",
+    "title": "Automatic Mapping of OWL Ontologies into Java.",
+    "type": "paper-conference",
+    "volume": "4"
+  },
+  {
+    "author": [
+      {
+        "family": "Davis",
+        "given": "Lawrence"
+      }
+    ],
+    "id": "davis1991handbook",
+    "issued": {
+      "date-parts": [
+        [
+          1991
+        ]
+      ]
+    },
+    "title": "Handbook of genetic algorithms",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Deb",
+        "given": "Kalyanmoy"
+      },
+      {
+        "family": "Pratap",
+        "given": "Amrit"
+      },
+      {
+        "family": "Agarwal",
+        "given": "Sameer"
+      },
+      {
+        "family": "Meyarivan",
+        "given": "TAMT"
+      }
+    ],
+    "container-title": "IEEE transactions on evolutionary computation",
+    "id": "deb2002fast",
+    "issue": "2",
+    "issued": {
+      "date-parts": [
+        [
+          2002
+        ]
+      ]
+    },
+    "page": "182-197",
+    "publisher": "IEEE",
+    "title": "A fast and elitist multiobjective genetic algorithm: NSGA-II",
+    "type": "article-journal",
+    "volume": "6"
+  },
+  {
+    "author": [
+      {
+        "family": "Fonseca",
+        "given": "Carlos M"
+      },
+      {
+        "family": "Fleming",
+        "given": "Peter J"
+      },
+      {
+        "literal": "others"
+      }
+    ],
+    "collection-number": "July",
+    "container-title": "Icga",
+    "id": "fonseca1993genetic",
+    "issued": {
+      "date-parts": [
+        [
+          1993
+        ]
+      ]
+    },
+    "page": "416-423",
+    "publisher": "Citeseer",
+    "title": "Genetic Algorithms for Multiobjective Optimization: FormulationDiscussion and Generalization.",
+    "type": "paper-conference",
+    "volume": "93"
+  },
+  {
+    "author": [
+      {
+        "family": "Witten",
+        "given": "Ian H"
+      },
+      {
+        "family": "Frank",
+        "given": "Eibe"
+      },
+      {
+        "family": "Trigg",
+        "given": "Leonard E"
+      },
+      {
+        "family": "Hall",
+        "given": "Mark A"
+      },
+      {
+        "family": "Holmes",
+        "given": "Geoffrey"
+      },
+      {
+        "family": "Cunningham",
+        "given": "Sally Jo"
+      }
+    ],
+    "id": "witten1999weka",
+    "issued": {
+      "date-parts": [
+        [
+          1999
+        ]
+      ]
+    },
+    "title": "Weka: Practical machine learning tools and techniques with Java implementations",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Kolari",
+        "given": "Pranam"
+      },
+      {
+        "family": "Java",
+        "given": "Akshay"
+      },
+      {
+        "family": "Finin",
+        "given": "Tim"
+      },
+      {
+        "family": "Oates",
+        "given": "Tim"
+      },
+      {
+        "family": "Joshi",
+        "given": "Anupam"
+      }
+    ],
+    "collection-number": "2",
+    "container-title": "Proceedings of the National Conference on Artificial Intelligence",
+    "id": "kolari2006detecting",
+    "issued": {
+      "date-parts": [
+        [
+          2006
+        ]
+      ]
+    },
+    "page": "1351",
+    "publisher": "Menlo Park, CA; Cambridge, MA; London; AAAI Press; MIT Press; 1999",
+    "title": "Detecting spam blogs: A machine learning approach",
+    "type": "paper-conference",
+    "volume": "21"
+  },
+  {
+    "author": [
+      {
+        "family": "Abeel",
+        "given": "Thomas"
+      },
+      {
+        "family": "Peer",
+        "given": "Yves Van de"
+      },
+      {
+        "family": "Saeys",
+        "given": "Yvan"
+      }
+    ],
+    "container-title": "Journal of Machine Learning Research",
+    "id": "abeel2009java",
+    "issue": "Apr",
+    "issued": {
+      "date-parts": [
+        [
+          2009
+        ]
+      ]
+    },
+    "page": "931-934",
+    "title": "Java-ml: A machine learning library",
+    "type": "article-journal",
+    "volume": "10"
+  },
+  {
+    "author": [
+      {
+        "family": "Frank",
+        "given": "Eibe"
+      },
+      {
+        "family": "Hall",
+        "given": "Mark"
+      },
+      {
+        "family": "Trigg",
+        "given": "Len"
+      },
+      {
+        "family": "Holmes",
+        "given": "Geoffrey"
+      },
+      {
+        "family": "Witten",
+        "given": "Ian H"
+      }
+    ],
+    "container-title": "Bioinformatics",
+    "id": "frank2004data",
+    "issue": "15",
+    "issued": {
+      "date-parts": [
+        [
+          2004
+        ]
+      ]
+    },
+    "page": "2479-2481",
+    "publisher": "Oxford Univ Press",
+    "title": "Data mining in bioinformatics using Weka",
+    "type": "article-journal",
+    "volume": "20"
+  },
+  {
+    "author": [
+      {
+        "family": "Kotsiantis",
+        "given": "Sotiris B"
+      },
+      {
+        "family": "Zaharakis",
+        "given": "I"
+      },
+      {
+        "family": "Pintelas",
+        "given": "P"
+      }
+    ],
+    "id": "kotsiantis2007supervised",
+    "issued": {
+      "date-parts": [
+        [
+          2007
+        ]
+      ]
+    },
+    "title": "Supervised machine learning: A review of classification techniques",
+    "type": "no-type"
+  }
+]

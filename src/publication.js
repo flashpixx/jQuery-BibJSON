@@ -71,9 +71,6 @@
         // filter callback
         callbackFilter : function( po, pa_search ) { return pa_search.every(function(i){ return po.title.toLowerCase().indexOf( i.toLowerCase() ) != -1; }); },
 
-        // sorting callback
-        callbackSort : function( po1, po2 ) { return po1.title.localeCompare( po2.title ); },
-
         // finish callback (is called after all data are shown)
         callbackFinish : null
     };
@@ -93,20 +90,23 @@
         this.bibjson = [];
         this.bibtex = "";
         
-        return initialize(this);
+        return this.load();
     }
 
     Publication.prototype = {
 
         /**
          * load data
+         * 
+         * @return self reference
          */
         load : function() {
             var self = this;
 
             if ( self.settings.bibjson )
                 jQuery.ajax({ url: self.settings.bibjson }).done(function( pa_data ) { 
-                    self.bibjson = pa_data; ; 
+                    self.bibjson = {};
+                    pa_data.forEach(function(i) { self.bibjson[i.id] = i;  }) 
 
                     if ( !self.settings.bibtex )
                         processdata( self )
@@ -124,6 +124,7 @@
          * adds a filter to the items
          * 
          * @param pc_filter filter string (will be split on any space) / empty or null value resets the filter
+         * @return self reference
          */
         filter : function( pc_filter ) {
             var self = this;
@@ -137,7 +138,7 @@
                             : function() { return true; } 
             
 
-            this.bibjson.forEach(function(i) {
+            Object.values(this.bibjson).forEach(function(i) {
                 var l_id = lo_generator( i.id );
                 if ( !l_id )
                     return;
@@ -148,6 +149,22 @@
                     jQuery( "#" + l_id ).addClass( self.settings.csshidden );    
             });
 
+            return this;
+        },
+
+        /**
+         * sorts the list
+         * 
+         * @param po_sort sorting function
+         * @return self reference
+         */
+        sort : function( po_sort ) {
+            var self = this;
+            var lo_sort = po_sort && ( typeof(po_sort) === "function" )
+                          ? po_sort
+                          : function() { return 0; }
+
+            this.dom.children().sort(function(i, j) { return lo_sort( self.bibjson[ jQuery(i).data("bibtexid") ], self.bibjson[ jQuery(j).data("bibtexid") ] ); });
             return this;
         },
 
@@ -174,16 +191,6 @@
     // ---- private function ------------------------------------------------------------------------------------------------
 
     /**
-     * constructor
-     *
-     * @param po_this execution context
-     * @return self reference
-     */
-    var initialize = function (po_this) {
-        return po_this.load();
-    }
-
-    /**
      * process BibJSON array
      * 
      * @param po_this plugin reference
@@ -196,14 +203,16 @@
                            : undefined; 
 
         po_this.dom.empty();
-        po_this.bibjson
+        Object.values( po_this.bibjson )
 
         // sort data
+        /*
         .sort(
             typeof( po_this.settings.callbackSort ) === "function"
             ? po_this.settings.callbackSort
             : function() { return 0; }
         )
+        */
 
         // create list with meta-data
         .forEach(function( po_item ) {
@@ -229,6 +238,7 @@
             return;
 
         var lo_item = po_this.settings.callbackFormatEntry( po_item );
+        lo_item.attr("data-bibtexid", po_item.id);
 
         if ( po_this.settings.cssentry )
             lo_item.addClass( po_this.settings.cssentry );

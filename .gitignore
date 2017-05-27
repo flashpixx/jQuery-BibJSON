@@ -3,3 +3,8 @@
 !*.md
 !*.js
 
+!test/*.htm?
+!test/*.css
+!test/*.bib
+!test/*.json
+!test/publication.js
