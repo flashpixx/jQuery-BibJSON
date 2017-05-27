@@ -68,9 +68,6 @@
         // callback for ID generator
         callbackIDGenerator : function( po_this ) { var l_id = po_this.dom.attr("id"); if ( !l_id ) throw new Error( "parent object needs an id attribute" ); return function(i) { return l_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; },
 
-        // filter callback
-        callbackFilter : function( po, pa_search ) { return pa_search.every(function(i){ return po.title.toLowerCase().indexOf( i.toLowerCase() ) != -1; }); },
-
         // finish callback (is called after all data are shown)
         callbackFinish : null
     };
@@ -123,20 +120,13 @@
         /**
          * adds a filter to the items
          * 
-         * @param pc_filter filter string (will be split on any space) / empty or null value resets the filter
+         * @param po_filter filter function (true element is shown, otherwise element is hidden)
          * @return self reference
          */
-        filter : function( pc_filter ) {
+        filter : function( po_filter ) {
             var self = this;
-            
-            var lo_generator = typeof( self.settings.callbackIDGenerator ) === "function"
-                               ? self.settings.callbackIDGenerator( self )
-                               : function() { return ""; }; 
-            
-            var lo_filter = pc_filter && ( typeof( self.settings.callbackFilter ) === "function" ) 
-                            ? function(po) { return self.settings.callbackFilter( po, pc_filter.split(/(\s+)/).filter( function(i) { return i.trim().length > 0; } ) ) } 
-                            : function() { return true; } 
-            
+            var lo_generator = self.settings.callbackIDGenerator( this );
+            var lo_filter = po_filter && ( typeof( po_filter ) === "function" ) ? po_filter : function() { return true; } 
 
             Object.values(this.bibjson).forEach(function(i) {
                 var l_id = lo_generator( i.id );
@@ -164,7 +154,7 @@
                           ? po_sort
                           : function() { return 0; }
 
-            this.dom.children().sort(function(i, j) { return lo_sort( self.bibjson[ jQuery(i).data("bibtexid") ], self.bibjson[ jQuery(j).data("bibtexid") ] ); });
+            this.dom.children().sort(function(i, j) { return lo_sort( self.bibjson[ jQuery(i).data("bibtexid") ], self.bibjson[ jQuery(j).data("bibtexid") ] ); }).appendTo( this.dom );
             return this;
         },
 
@@ -221,7 +211,7 @@
         });
 
         if ( typeof( po_this.settings.callbackFinish ) === "function" )
-            po_this.settings.callbackFinish();    
+            po_this.settings.callbackFinish( po_this );    
     }
 
 
