@@ -169,7 +169,7 @@
             if ( ( !l_search ) || ( l_search.length == 0 ) )
                 return null;
 
-            var l_result = l_search[0].slice(0, -1).trim();
+            var l_result = l_search[0].slice(0, -1).trim().replace(/(\r\n|\n|\r)/gm, "");
             return l_result[ l_result.length - 1 ] != '}'
                    ? l_result + "}"
                    : l_result;
@@ -195,19 +195,9 @@
         po_this.dom.empty();
         Object.values( po_this.bibjson )
 
-        // sort data
-        /*
-        .sort(
-            typeof( po_this.settings.callbackSort ) === "function"
-            ? po_this.settings.callbackSort
-            : function() { return 0; }
-        )
-        */
-
         // create list with meta-data
         .forEach(function( po_item ) {
-           //console.log( po_item );
-           po_this.dom.append( format_entry( po_this, po_item, lo_generator ) ); 
+            po_this.dom.append( format_entry( po_this, po_item, lo_generator ) ); 
         });
 
         if ( typeof( po_this.settings.callbackFinish ) === "function" )
