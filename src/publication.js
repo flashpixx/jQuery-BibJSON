@@ -62,7 +62,7 @@
         // format callbacks
         callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
         callbackFormatTitle : function ( po ) { var lo = jQuery('<span class="title">'); lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); return lo; },
-        callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given + " " + po_item.family; } ).join(", ") + ")" ); return lo; },
+        callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given && po_item.family ? po_item.given + " " + po_item.family : null; } ).filter(function(i) { return i != null; }).join(", ") + ")" ); return lo; },
         callbackFormatBibtex : null,
 
         // callback for ID generator
@@ -108,7 +108,8 @@
                     if ( !self.settings.bibtex )
                         processdata( self )
                     else   
-                        jQuery.get( self.settings.bibtex, function(pc_data) { 
+                        jQuery.get( self.settings.bibtex, function(pc_data) {
+                            // don't filter line-breaks because of searching by a regular expression
                             self.bibtex = pc_data;
                             processdata( self );
                         }, "text" );
@@ -169,7 +170,7 @@
             if ( ( !l_search ) || ( l_search.length == 0 ) )
                 return null;
 
-            var l_result = l_search[0].slice(0, -1).trim().replace(/(\r\n|\n|\r)/gm, "");
+            var l_result = l_search[0].slice(0, -1).trim().replace(/\s+/g, " ");;
             return l_result[ l_result.length - 1 ] != '}'
                    ? l_result + "}"
                    : l_result;
