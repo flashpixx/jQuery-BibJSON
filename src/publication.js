@@ -62,7 +62,7 @@
         // format callbacks
         callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
         callbackFormatTitle : function ( po ) { var lo = jQuery('<span class="title">'); lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); return lo; },
-        callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given && po_item.family ? po_item.given + " " + po_item.family : null; } ).filter(function(i) { return i != null; }).join(", ") + ")" ); return lo; },
+        callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given && po_item.family ? po_item.given + " " + po_item.family : ( po_item["literal"] ? po_item["literal"] : null ); } ).filter(function(i) { return i != null; }).join(", ") + ")" ); return lo; },
         callbackFormatBibtex : null,
 
         // callback for ID generator
