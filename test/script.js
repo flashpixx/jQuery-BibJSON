@@ -10,10 +10,10 @@ jQuery(function() {
         bibtex  : "publication.bib",
 
         // callback of formatter of bibtex element
-        callbackFormatBibtex : function( pc ) { 
+        callbackFormatBibtex : function( pc, po ) { 
                                     return jQuery("<input>").addClass("bibtex")
                                                             .attr("type", "button")
-                                                            .attr( "data-clipboard-text", jQuery("#publication").publication().bibtexsource(pc) )
+                                                            .attr( "data-clipboard-text", po.bibtexsource(pc) )
                                                             .val("BibTeX");
         },
 

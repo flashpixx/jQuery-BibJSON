@@ -102,19 +102,27 @@
             var self = this;
 
             if ( self.settings.bibjson )
-                jQuery.ajax({ url: self.settings.bibjson }).done(function( pa_data ) { 
-                    self.bibjson = {};
-                    pa_data.forEach(function(i) { self.bibjson[i.id] = i;  }) 
+                jQuery.ajax({ url: self.settings.bibjson, datatype : "json" })
+                      .done( function( pa_data ) { 
+                          self.bibjson = {};
+                          pa_data.forEach( function(i) { self.bibjson[i.id] = i;  }) 
 
-                    if ( !self.settings.bibtex )
-                        processdata( self )
-                    else   
-                        jQuery.get( self.settings.bibtex, function(pc_data) {
-                            // we add between closing entry backet and @ an explicit linebreak for matching the regular expression
-                            self.bibtex = pc_data.replace(/\s+/g, " ").replace(/\} @/g, "}\n@");
-                            processdata( self );
-                        }, "text" );
-                });
+                          if ( !self.settings.bibtex )
+                              processdata( self )
+                          else   
+                              jQuery.get( self.settings.bibtex, "text" )
+                                    .done( function(pc_data) {
+                                        // we add between closing entry backet and @ an explicit linebreak for matching the regular expression
+                                        self.bibtex = pc_data.replace(/\s+/g, " ").replace(/\} @/g, "}\n@");
+                                        processdata( self );
+                                    })
+                                    .fail( function() {
+                                        throw new Error( "BibTeX source [" + self.settings.bibtex + "] cannot be read" );
+                                    });
+                      })
+                      .fail( function() {
+                          throw new Error( "BibJSON source [" + self.settings.bibjson + "] cannot be read" );
+                      })
             
             return this;
         },
@@ -237,8 +245,14 @@
         if ( ( typeof(po_this.settings.callbackFormatAuthor) === "function" ) && ( po_item.author ) )
             lo_item.append(" ").append( po_this.settings.callbackFormatAuthor( po_item.author ) );
 
-        if ( typeof(po_this.settings.callbackFormatBibtex) === "function" )
-            lo_item.append(" ").append( po_this.settings.callbackFormatBibtex( po_item.id ) );
+        if (po_this.settings.bibtex)
+        {
+            if ( !new RegExp( "@.+\\{" + po_item.id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") ).test( po_this.bibtex ) )
+                throw new Error( "BibJSON ID [" + po_item.id + "] not found in BibTeX source, data sources seems not be synchronized" );
+
+            if ( typeof(po_this.settings.callbackFormatBibtex) === "function" )
+                lo_item.append(" ").append( po_this.settings.callbackFormatBibtex( po_item.id, po_this ) );
+        }
 
         return lo_item;
     }
