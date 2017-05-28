@@ -109,8 +109,8 @@
                         processdata( self )
                     else   
                         jQuery.get( self.settings.bibtex, function(pc_data) {
-                            // don't filter line-breaks because of searching by a regular expression
-                            self.bibtex = pc_data;
+                            // we add between closing entry backet and @ an explicit linebreak for matching the regular expression
+                            self.bibtex = pc_data.replace(/\s+/g, " ").replace(/\} @/g, "}\n@");
                             processdata( self );
                         }, "text" );
                 });
@@ -170,7 +170,7 @@
             if ( ( !l_search ) || ( l_search.length == 0 ) )
                 return null;
 
-            var l_result = l_search[0].slice(0, -1).trim().replace(/\s+/g, " ");;
+            var l_result = l_search[0].slice(0, -1).trim()
             return l_result[ l_result.length - 1 ] != '}'
                    ? l_result + "}"
                    : l_result;
