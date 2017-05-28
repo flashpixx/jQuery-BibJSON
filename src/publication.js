@@ -51,25 +51,33 @@
      */
     jQuery.fn[pluginname].defaultSettings = {
         
-        // AJAX url of the BibJSON data
+        // ajax url of the BibJSON data
         bibjson : null,
+        // http url of the BibTeX data (optional)
         bibtex : null,
 
-        // CSS classes
+        // css class name to show items
         csshidden : "hidden",
+        // css class name of each publication entry
         cssentry  : "publication",
+        // data-field name to store the BibTeX ID
         datafield : "bibtexid",
 
-        // format callbacks
+        // defines the exection order of all format callbacks (entry is called first)
+        callbackFormatOrder : [ "title", "author", "bibtex" ],
+        // format callback of a publication entry
         callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
+        // format callback of the title entry
         callbackFormatTitle : function ( po ) { var lo = jQuery('<span class="title">'); lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); return lo; },
+        // format callback of the author entry
         callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given && po_item.family ? po_item.given + " " + po_item.family : ( po_item["literal"] ? po_item["literal"] : null ); } ).filter(function(i) { return i != null; }).join(", ") + ")" ); return lo; },
+        // format callback to define the BibTeX entry (e.g. dowload of the BibTeX source)
         callbackFormatBibtex : null,
 
-        // callback for ID generator
+        // callback to generate a callback to define css ids
         callbackIDGenerator : function( po_this ) { var lc_id = po_this.dom.attr("id"); if ( !lc_id ) throw new Error( "parent object needs an id attribute" ); return function(i) { return lc_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; },
 
-        // finish callback (is called after all data are shown)
+        // callback which is called after the publication list is added to the dom tree
         callbackFinish : null
     };
 
@@ -81,8 +89,9 @@
      *
      * @param po_element DOM element
      * @param po_options initialize options
+     * @return self reference / instance
      */
-    function Publication (po_element, po_options) {
+    function Publication(po_element, po_options) {
         this.dom = po_element;
         this.settings = po_options;
         this.bibjson = [];
@@ -198,18 +207,51 @@
      */
     var processdata = function ( po_this, pc_filter )
     {
-        var lo_generator = typeof(po_this.settings.callbackIDGenerator) === "function"
-                           ? po_this.settings.callbackIDGenerator( po_this )
-                           : undefined; 
+        if ( typeof(po_this.settings.callbackIDGenerator) !== "function" )
+            throw new Error( "ID generator not set" );
 
+        if ( typeof(po_this.settings.callbackFormatEntry) !== "function" )
+            throw new Error( "entry format callback not set" );
+
+
+        // build all necessary function elements
+        var lo_executer = {
+
+            "id" : po_this.settings.callbackIDGenerator( po_this ),
+
+            "entry" : po_this.settings.callbackFormatEntry,
+
+            "title" : function( po_dom, po_this, po_item ) {
+                          if ( typeof(po_this.settings.callbackFormatTitle) === "function" )
+                              po_dom.append(" ").append( po_this.settings.callbackFormatTitle( po_item ) );
+            },
+
+            "author" : function( po_dom, po_this, po_item ) {
+                          if ( ( typeof(po_this.settings.callbackFormatAuthor) === "function" ) && ( po_item.author ) )
+                              po_dom.append(" ").append( po_this.settings.callbackFormatAuthor( po_item.author ) );
+            },
+
+            "bibtex" : function( po_dom, po_this, po_item ) {
+                          if (!po_this.settings.bibtex)
+                            return;
+                            
+                          if ( !new RegExp( "@.+\\{" + po_item.id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") ).test( po_this.bibtex ) )
+                              throw new Error( "BibJSON ID [" + po_item.id + "] not found in BibTeX source, data sources seems not be synchronized" );
+
+                          if ( typeof(po_this.settings.callbackFormatBibtex) === "function" )
+                              po_dom.append(" ").append( po_this.settings.callbackFormatBibtex( po_item.id, po_this ) );
+            }
+        };
+
+
+        // clear dom element and iterate over all bibjson data
         po_this.dom.empty();
         Object.values( po_this.bibjson )
 
         // create list with meta-data
-        .forEach(function( po_item ) {
-            po_this.dom.append( format_entry( po_this, po_item, lo_generator ) ); 
-        });
+        .forEach(function( po_item ) { po_this.dom.append( format_entry( po_this, po_item, lo_executer ) ); });
 
+        // execute finisher iif exist
         if ( typeof( po_this.settings.callbackFinish ) === "function" )
             po_this.settings.callbackFinish( po_this );    
     }
@@ -220,41 +262,26 @@
      * 
      * @param po_this plugin reference 
      * @param po_item BibJSON object
-     * @param po_idgenerator generator function for CSS IDs
+     * @param po_executer object with executer functions
      * @return DOM entry
      */
-    var format_entry = function ( po_this, po_item, po_idgenerator ) {
-        if ( typeof(po_this.settings.callbackFormatEntry) !== "function" )
-            return;
+    var format_entry = function ( po_this, po_item, po_executer ) {
+        var lo_dom = po_executer.entry( po_item );
 
-        var lo_item = po_this.settings.callbackFormatEntry( po_item );
-        lo_item.attr("data-" + po_this.settings.datafield, po_item.id );
-
+        lo_dom.attr("data-" + po_this.settings.datafield, po_item.id );
+        lo_dom.attr( "id", po_executer.id( po_item.id ) );
+        
         if (po_item["type"])
-            lo_item.addClass( po_item["type"].replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_") );
-
+            lo_dom.addClass( po_item["type"].replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_") );
+        
         if ( po_this.settings.cssentry )
-            lo_item.addClass( po_this.settings.cssentry );
+             lo_dom.addClass( po_this.settings.cssentry );
+        
+        po_this.settings.callbackFormatOrder
+                        .filter(function(i) { return (i !== "id" ) && ( i !== "entry" ); })
+                        .forEach(function(i) { po_executer[i]( lo_dom, po_this, po_item ); });
 
-        if ( typeof(po_idgenerator) === "function" )
-            lo_item.attr( "id", po_idgenerator( po_item.id ) );
-
-        if ( typeof(po_this.settings.callbackFormatTitle) === "function" )
-            lo_item.append( po_this.settings.callbackFormatTitle( po_item ) );
-
-        if ( ( typeof(po_this.settings.callbackFormatAuthor) === "function" ) && ( po_item.author ) )
-            lo_item.append(" ").append( po_this.settings.callbackFormatAuthor( po_item.author ) );
-
-        if (po_this.settings.bibtex)
-        {
-            if ( !new RegExp( "@.+\\{" + po_item.id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") ).test( po_this.bibtex ) )
-                throw new Error( "BibJSON ID [" + po_item.id + "] not found in BibTeX source, data sources seems not be synchronized" );
-
-            if ( typeof(po_this.settings.callbackFormatBibtex) === "function" )
-                lo_item.append(" ").append( po_this.settings.callbackFormatBibtex( po_item.id, po_this ) );
-        }
-
-        return lo_item;
+        return lo_dom;
     }
 
 }(jQuery));
