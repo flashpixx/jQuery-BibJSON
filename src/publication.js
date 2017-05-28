@@ -66,7 +66,7 @@
         callbackFormatBibtex : null,
 
         // callback for ID generator
-        callbackIDGenerator : function( po_this ) { var l_id = po_this.dom.attr("id"); if ( !l_id ) throw new Error( "parent object needs an id attribute" ); return function(i) { return l_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; },
+        callbackIDGenerator : function( po_this ) { var lc_id = po_this.dom.attr("id"); if ( !lc_id ) throw new Error( "parent object needs an id attribute" ); return function(i) { return lc_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; },
 
         // finish callback (is called after all data are shown)
         callbackFinish : null
@@ -130,14 +130,14 @@
             var lo_filter = po_filter && ( typeof( po_filter ) === "function" ) ? po_filter : function() { return true; } 
 
             Object.values(this.bibjson).forEach(function(i) {
-                var l_id = lo_generator( i.id );
-                if ( !l_id )
+                var lc_id = lo_generator( i.id );
+                if ( !lc_id )
                     return;
 
                 if ( lo_filter( i ) )
-                    jQuery( "#" + l_id ).removeClass( self.settings.csshidden );
+                    jQuery( "#" + lc_id ).removeClass( self.settings.csshidden );
                 else
-                    jQuery( "#" + l_id ).addClass( self.settings.csshidden );    
+                    jQuery( "#" + lc_id ).addClass( self.settings.csshidden );    
             });
 
             return this;
@@ -166,14 +166,14 @@
          * @return string with Bibtex
          */
         bibtexsource : function( pc_id ) {
-            var l_search = new RegExp( "@.+\\{" + pc_id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + "(.|\\s)+?(@|$)" ).exec( this.bibtex );
-            if ( ( !l_search ) || ( l_search.length == 0 ) )
+            var lo_search = new RegExp( "@.+\\{" + pc_id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + "(.|\\s)+?(@|$)" ).exec( this.bibtex );
+            if ( ( !lo_search ) || ( lo_search.length == 0 ) )
                 return null;
 
-            var l_result = l_search[0].slice(0, -1).trim()
-            return l_result[ l_result.length - 1 ] != '}'
-                   ? l_result + "}"
-                   : l_result;
+            var lc_result = lo_search[0].slice(0, -1).trim()
+            return lc_result[ lc_result.length - 1 ] != '}'
+                   ? lc_result + "}"
+                   : lc_result;
         }
 
     };
@@ -220,6 +220,9 @@
 
         var lo_item = po_this.settings.callbackFormatEntry( po_item );
         lo_item.attr("data-bibtexid", po_item.id);
+
+        if (po_item["type"])
+            lo_item.addClass( po_item["type"].replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_") );
 
         if ( po_this.settings.cssentry )
             lo_item.addClass( po_this.settings.cssentry );
