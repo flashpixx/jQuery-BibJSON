@@ -58,6 +58,7 @@
         // CSS classes
         csshidden : "hidden",
         cssentry  : "publication",
+        datafield : "bibtexid",
 
         // format callbacks
         callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
@@ -155,7 +156,7 @@
                           ? po_sort
                           : function() { return 0; }
 
-            this.dom.children().sort(function(i, j) { return lo_sort( self.bibjson[ jQuery(i).data("bibtexid") ], self.bibjson[ jQuery(j).data("bibtexid") ] ); }).appendTo( this.dom );
+            this.dom.children().sort(function(i, j) { return lo_sort( self.bibjson[ jQuery(i).data( self.settings.datafield ) ], self.bibjson[ jQuery(j).data( self.settings.datafield ) ] ); }).appendTo( this.dom );
             return this;
         },
 
@@ -219,7 +220,7 @@
             return;
 
         var lo_item = po_this.settings.callbackFormatEntry( po_item );
-        lo_item.attr("data-bibtexid", po_item.id);
+        lo_item.attr("data-" + po_this.settings.datafield, po_item.id );
 
         if (po_item["type"])
             lo_item.addClass( po_item["type"].replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_") );
