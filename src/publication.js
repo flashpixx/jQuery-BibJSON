@@ -53,29 +53,85 @@
         
         // ajax url of the BibJSON data
         bibjson : null,
+
         // http url of the BibTeX data (optional)
         bibtex : null,
 
+
+
         // css class name to show items
         csshidden : "hidden",
+        
         // css class name of each publication entry
         cssentry  : "publication",
+        
         // data-field name to store the BibTeX ID
         datafield : "bibtexid",
 
+
+
         // defines the exection order of all format callbacks (entry is called first)
-        callbackFormatOrder : [ "title", "author", "bibtex" ],
+        callbackFormatOrder : [ "title", "author", "publishing", "bibtex" ],
+
         // format callback of a publication entry
         callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
+
         // format callback of the title entry
-        callbackFormatTitle : function ( po ) { var lo = jQuery('<span class="title">'); lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); return lo; },
+        callbackFormatTitle : function( po ) { 
+            var lo = jQuery('<span class="title">'); 
+            lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); 
+            return lo; 
+        },
+        
         // format callback of the author entry
-        callbackFormatAuthor : function( pa ) { var lo = jQuery('<span class="author">'); lo.append( "(" + pa.map( function(po_item) { return po_item.given && po_item.family ? po_item.given + " " + po_item.family : ( po_item["literal"] ? po_item["literal"] : null ); } ).filter(function(i) { return i != null; }).join(", ") + ")" ); return lo; },
+        callbackFormatAuthor : function( pa ) { 
+            var lo = jQuery('<span class="author">'); 
+            lo.append( 
+                pa.map( function(po_item) { 
+                    return po_item.given && po_item.family 
+                           ? po_item.given + " " + po_item.family 
+                           : ( po_item["literal"] ? po_item["literal"] : null ); 
+                })
+                .filter(function(i) { return i != null; }).join(", ") ); 
+                return lo; 
+         },
+        
+        // format callback of editor / publisher information
+        callbackFormatPublishing : function( po ) {
+            var lo = jQuery('<span class="publishing">');
+            var la = [];
+
+            if ( po["container-title"] )
+                la.push( po["container-title"] );
+
+            if ( po["collection-number"] )
+                la.push( "number " + po["collection-number"] );
+
+            if ( ( po["issue"] ) && ( po["issued"] ) ) 
+                la.push( po["issue"] + "." + (jQuery.isNumeric(po["issue"]) ? "" : " ") + po["issued"]["date-parts"].map(function(i) { return i.join(" ") }) );
+
+            if ( po["volume"] )
+                la.push( "volume " + po["volume"] );
+
+            if ( po["page"] )
+                la.push( "page " + po["page"] );
+
+            if ( po["publisher"] )
+                la.push( po["publisher"] );
+     
+            lo.append( la.join(", ") );
+            return lo;
+        },
         // format callback to define the BibTeX entry (e.g. dowload of the BibTeX source)
         callbackFormatBibtex : null,
 
         // callback to generate a callback to define css ids
-        callbackIDGenerator : function( po_this ) { var lc_id = po_this.dom.attr("id"); if ( !lc_id ) throw new Error( "parent object needs an id attribute" ); return function(i) { return lc_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; },
+        callbackIDGenerator : function( po_this ) { 
+            var lc_id = po_this.dom.attr("id"); 
+            if ( !lc_id ) 
+                throw new Error( "parent object needs an id attribute" ); 
+            return function(i) { return lc_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; 
+        },
 
         // callback which is called after the publication list is added to the dom tree
         callbackFinish : null
@@ -222,14 +278,37 @@
             "entry" : po_this.settings.callbackFormatEntry,
 
             "title" : function( po_dom, po_this, po_item ) {
-                          if ( typeof(po_this.settings.callbackFormatTitle) === "function" )
-                              po_dom.append(" ").append( po_this.settings.callbackFormatTitle( po_item ) );
+                          if ( typeof(po_this.settings.callbackFormatTitle) !== "function" )
+                            return;
+
+                          var lo = po_this.settings.callbackFormatTitle( po_item );
+                          if ( !lo )
+                            return;
+
+                          po_dom.append(" ").append( lo );
             },
 
             "author" : function( po_dom, po_this, po_item ) {
-                          if ( ( typeof(po_this.settings.callbackFormatAuthor) === "function" ) && ( po_item.author ) )
-                              po_dom.append(" ").append( po_this.settings.callbackFormatAuthor( po_item.author ) );
+                          if ( ( typeof(po_this.settings.callbackFormatAuthor) !== "function" ) && ( po_item.author ) )
+                              return;
+
+                          var lo = po_this.settings.callbackFormatAuthor( po_item.author );
+                          if ( !lo )
+                              return;
+
+                          po_dom.append(" ").append( lo );
             },
+
+            "publishing" : function( po_dom, po_this, po_item ) {
+                               if ( typeof(po_this.settings.callbackFormatPublishing) !== "function" )
+                                   return;
+
+                               var lo = po_this.settings.callbackFormatPublishing( po_item );
+                               if ( !lo )
+                                   return;
+
+                               po_dom.append(" ").append( lo );                
+            },    
 
             "bibtex" : function( po_dom, po_this, po_item ) {
                           if (!po_this.settings.bibtex)
@@ -238,8 +317,14 @@
                           if ( !new RegExp( "@.+\\{" + po_item.id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") ).test( po_this.bibtex ) )
                               throw new Error( "BibJSON ID [" + po_item.id + "] not found in BibTeX source, data sources seems not be synchronized" );
 
-                          if ( typeof(po_this.settings.callbackFormatBibtex) === "function" )
-                              po_dom.append(" ").append( po_this.settings.callbackFormatBibtex( po_item.id, po_this ) );
+                          if ( typeof(po_this.settings.callbackFormatBibtex) !== "function" )
+                              return;
+
+                          var lo = po_this.settings.callbackFormatBibtex( po_item.id, po_this );
+                          if ( !lo )
+                              return;      
+                          
+                          po_dom.append(" ").append( lo );
             }
         };
 
