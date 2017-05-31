@@ -11,10 +11,10 @@ jQuery(function() {
 
         // callback of formatter of bibtex element
         callbackFormatBibtex : function( pc, po ) { 
-                                    return jQuery("<input>").addClass("bibtex")
-                                                            .attr("type", "button")
-                                                            .attr( "data-clipboard-text", po.bibtexsource(pc) )
-                                                            .val("BibTeX");
+                                    return jQuery("<a>").addClass("bibtex")
+                                                        .attr("href", "")
+                                                        .attr("data-clipboard-text", po.bibtexsource(pc))
+                                                        .text("BibTeX");
         },
 
         // callback of finisher, after all entries are added to the DOM
@@ -38,8 +38,13 @@ jQuery(function() {
         else
         {
             var la = lc.split(/(\s+)/).filter( function(i) { return i.trim().length > 0; } );
+
             jQuery("#publication").publication().filter( function(po) {
-                return la.every(function(i){ return po.title.toLowerCase().indexOf( i.toLowerCase() ) != -1; });
+                return ["title", "publisher", "collection-title"].some(function(j) {
+                    return po[j] && la.every(function(i){ 
+                        return po[j].toLowerCase().indexOf( i.toLowerCase() ) != -1;
+                     });
+                });
             });
         }
     });
