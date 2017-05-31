@@ -44,6 +44,11 @@ jQuery(function() {
                     return po[j] && la.every(function(i){ 
                         return po[j].toLowerCase().indexOf( i.toLowerCase() ) != -1;
                      });
+                })
+                || ["author", "editor"].some(function(j) {
+                    return po[j] && la.some(function(i){
+                        return po[j].some(function(n) { return n.family && n.family.toLowerCase().indexOf( i.toLowerCase() ) != -1; });
+                    });
                 });
             });
         }
