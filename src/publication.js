@@ -289,7 +289,7 @@
             },
 
             "author" : function( po_dom, po_this, po_item ) {
-                          if ( ( typeof(po_this.settings.callbackFormatAuthor) !== "function" ) && ( po_item.author ) )
+                          if ( ( typeof(po_this.settings.callbackFormatAuthor) !== "function" ) || ( !po_item.author ) )
                               return;
 
                           var lo = po_this.settings.callbackFormatAuthor( po_item.author );
