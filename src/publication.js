@@ -93,6 +93,14 @@
             0 : function( po_this, po ) { 
                     var lo = jQuery('<span class="title">'); 
                     lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); 
+                    if ( po.DOI )
+                        lo.append(' (')
+                          .append( 
+                              jQuery("<a>").attr("href", "https://doi.org/" + po.DOI)
+                                           .attr("target", "_blank")
+                                           .html("DOI")
+                          )
+                          .append(')');
                     return lo; 
             },
 
