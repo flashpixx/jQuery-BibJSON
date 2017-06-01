@@ -94,7 +94,7 @@
                     var lo = jQuery('<span class="title">'); 
                     lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); 
                     return lo; 
-                },
+            },
 
             // authors
             10 : function( po_this, po ) {
@@ -105,15 +105,16 @@
                     lo.append( 
                         po.author.map( function(i) { 
                             return i.given && i.family 
-                                ? i.given + " " + i.family 
+                                ? i.given + ( i["dropping-particle"] ? " " + i["dropping-particle"] : "" ) + " " + i.family
                                 : ( i["literal"] ? i["literal"] : null ); 
                         })
-                        .filter(function(i) { return i != null; }).join(", ") ); 
+                        .filter(function(i) { return i != null; }).join(", ") 
+                    ); 
                     return lo; 
-                 },
+            },
 
             // publishing
-            20: function( po_this, po ) {
+            20 : function( po_this, po ) {
                     var lo = jQuery('<span class="publishing">');
                     var la = [];
 
@@ -135,9 +136,30 @@
                     if ( po["publisher"] )
                         la.push( po["publisher"] );
             
+                    if (la.length == 0)
+                        return null;
+
                     lo.append( la.join(", ") );
                     return lo;
-                }
+            },
+
+            // editors
+            30 : function( po_this, po ) {
+                    if ( !po.editor )
+                        return null;
+
+                    var lo = jQuery('<span class="editor">');    
+                    lo.append( 
+                        po.editor.map( function(i) { 
+                            return i.given && i.family 
+                                ? i.given + ( i["dropping-particle"] ? " " + i["dropping-particle"] : "" ) + " " + i.family 
+                                : null; 
+                        })
+                        .filter(function(i) { return i != null; }).join(", ") 
+                    );
+
+                    return lo;     
+            }
 
         }
 
