@@ -10,11 +10,13 @@ jQuery(function() {
         bibtex  : "publication.bib",
 
         // callback of formatter of bibtex element
-        callbackFormatBibtex : function( pc, po ) { 
-                                    return jQuery("<a>").addClass("bibtex")
-                                                        .attr("href", "")
-                                                        .attr("data-clipboard-text", po.bibtexsource(pc))
-                                                        .text("BibTeX");
+        callbackEntry : {
+            50 : function( po_this, po ) { 
+                                return jQuery("<a>").addClass("bibtex")
+                                                    .attr("href", "#")
+                                                    .attr("data-clipboard-text", po_this.bibtexsource(po.id))
+                                                    .text("BibTeX");
+            }
         },
 
         // callback of finisher, after all entries are added to the DOM

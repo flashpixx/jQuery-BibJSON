@@ -38,7 +38,7 @@
         var plugin = this.data("plugin_" + pluginname);
 
         if (!plugin) {
-            plugin = new Publication(this, jQuery.extend({}, jQuery.fn[pluginname].defaultSettings, options || {}));
+            plugin = new Publication(this, jQuery.extend(true, {}, jQuery.fn[pluginname].defaultSettings, options || {}));
             this.data("plugin_" + pluginname, plugin);
         }
 
@@ -70,60 +70,8 @@
 
 
 
-        // defines the exection order of all format callbacks (entry is called first)
-        callbackFormatOrder : [ "title", "author", "publishing", "bibtex" ],
-
-        // format callback of a publication entry
-        callbackFormatEntry : function( po ) { return jQuery( "<li>" ); },
-
-        // format callback of the title entry
-        callbackFormatTitle : function( po ) { 
-            var lo = jQuery('<span class="title">'); 
-            lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); 
-            return lo; 
-        },
-        
-        // format callback of the author entry
-        callbackFormatAuthor : function( pa ) { 
-            var lo = jQuery('<span class="author">'); 
-            lo.append( 
-                pa.map( function(po_item) { 
-                    return po_item.given && po_item.family 
-                           ? po_item.given + " " + po_item.family 
-                           : ( po_item["literal"] ? po_item["literal"] : null ); 
-                })
-                .filter(function(i) { return i != null; }).join(", ") ); 
-                return lo; 
-         },
-        
-        // format callback of editor / publisher information
-        callbackFormatPublishing : function( po ) {
-            var lo = jQuery('<span class="publishing">');
-            var la = [];
-
-            if ( po["container-title"] )
-                la.push( po["container-title"] );
-
-            if ( po["collection-number"] )
-                la.push( "number " + po["collection-number"] );
-
-            if ( ( po["issue"] ) && ( po["issued"] ) ) 
-                la.push( po["issue"] + "." + (jQuery.isNumeric(po["issue"]) ? "" : " ") + po["issued"]["date-parts"].map(function(i) { return i.join(" ") }) );
-
-            if ( po["volume"] )
-                la.push( "volume " + po["volume"] );
-
-            if ( po["page"] )
-                la.push( "page " + po["page"] );
-
-            if ( po["publisher"] )
-                la.push( po["publisher"] );
-     
-            lo.append( la.join(", ") );
-            return lo;
-        },
-        // format callback to define the BibTeX entry (e.g. dowload of the BibTeX source)
-        callbackFormatBibtex : null,
+        // callback to generate a publication entry
+        callbackEntryGenerator : function( po ) { return jQuery( "<li>" ); },
 
         // callback to generate a callback to define css ids
         callbackIDGenerator : function( po_this ) { 
@@ -133,8 +81,66 @@
             return function(i) { return lc_id + "-" + i.replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_"); }; 
         },
 
-        // callback which is called after the publication list is added to the dom tree
-        callbackFinish : null
+        // finish callback to determine successful execution
+        callbackFinish : null,
+
+
+        // any other callbacks, which are called in-order within each entry
+        // numeric keys allows to order the function calling
+        callbackEntry : {
+            
+            // title
+            0 : function( po_this, po ) { 
+                    var lo = jQuery('<span class="title">'); 
+                    lo.append( po.URL ? jQuery("<a>").attr("href", po.URL ).append( po.title ) : po.title ); 
+                    return lo; 
+                },
+
+            // authors
+            10 : function( po_this, po ) {
+                    if (!po.author)
+                        return null;
+
+                    var lo = jQuery('<span class="author">'); 
+                    lo.append( 
+                        po.author.map( function(i) { 
+                            return i.given && i.family 
+                                ? i.given + " " + i.family 
+                                : ( i["literal"] ? i["literal"] : null ); 
+                        })
+                        .filter(function(i) { return i != null; }).join(", ") ); 
+                    return lo; 
+                 },
+
+            // publishing
+            20: function( po_this, po ) {
+                    var lo = jQuery('<span class="publishing">');
+                    var la = [];
+
+                    if ( po["container-title"] )
+                        la.push( po["container-title"] );
+
+                    if ( po["collection-number"] )
+                        la.push( "number " + po["collection-number"] );
+
+                    if ( ( po["issue"] ) && ( po["issued"] ) ) 
+                        la.push( po["issue"] + "." + (jQuery.isNumeric(po["issue"]) ? "" : " ") + po["issued"]["date-parts"].map(function(i) { return i.join(" ") }) );
+
+                    if ( po["volume"] )
+                        la.push( "volume " + po["volume"] );
+
+                    if ( po["page"] )
+                        la.push( "page " + po["page"] );
+
+                    if ( po["publisher"] )
+                        la.push( po["publisher"] );
+            
+                    lo.append( la.join(", ") );
+                    return lo;
+                }
+
+        }
+
     };
 
 
@@ -266,75 +272,32 @@
         if ( typeof(po_this.settings.callbackIDGenerator) !== "function" )
             throw new Error( "ID generator not set" );
 
-        if ( typeof(po_this.settings.callbackFormatEntry) !== "function" )
-            throw new Error( "entry format callback not set" );
+        if ( typeof(po_this.settings.callbackEntryGenerator) !== "function" )
+            throw new Error( "entry generator callback not set" );
 
 
-        // build all necessary function elements
-        var lo_executer = {
+        // instance of id generator
+        var lo_idgenerator = po_this.settings.callbackIDGenerator( po_this );
 
-            "id" : po_this.settings.callbackIDGenerator( po_this ),
-
-            "entry" : po_this.settings.callbackFormatEntry,
-
-            "title" : function( po_dom, po_this, po_item ) {
-                          if ( typeof(po_this.settings.callbackFormatTitle) !== "function" )
-                            return;
-
-                          var lo = po_this.settings.callbackFormatTitle( po_item );
-                          if ( !lo )
-                            return;
-
-                          po_dom.append(" ").append( lo );
-            },
-
-            "author" : function( po_dom, po_this, po_item ) {
-                          if ( ( typeof(po_this.settings.callbackFormatAuthor) !== "function" ) || ( !po_item.author ) )
-                              return;
-
-                          var lo = po_this.settings.callbackFormatAuthor( po_item.author );
-                          if ( !lo )
-                              return;
-
-                          po_dom.append(" ").append( lo );
-            },
-
-            "publishing" : function( po_dom, po_this, po_item ) {
-                               if ( typeof(po_this.settings.callbackFormatPublishing) !== "function" )
-                                   return;
-
-                               var lo = po_this.settings.callbackFormatPublishing( po_item );
-                               if ( !lo )
-                                   return;
-
-                               po_dom.append(" ").append( lo );                
-            },    
-
-            "bibtex" : function( po_dom, po_this, po_item ) {
-                          if (!po_this.settings.bibtex)
-                            return;
-                            
-                          if ( !new RegExp( "@.+\\{" + po_item.id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") ).test( po_this.bibtex ) )
-                              throw new Error( "BibJSON ID [" + po_item.id + "] not found in BibTeX source, data sources seems not be synchronized" );
-
-                          if ( typeof(po_this.settings.callbackFormatBibtex) !== "function" )
-                              return;
-
-                          var lo = po_this.settings.callbackFormatBibtex( po_item.id, po_this );
-                          if ( !lo )
-                              return;      
-                          
-                          po_dom.append(" ").append( lo );
-            }
-        };
+        // check function to analyse BibTeX source
+        var lo_bibtexcheck = po_this.settings.bibtex
+                             ? function(i) { 
+                                   if ( !new RegExp( "@.+\\{" + i.id.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") ).test( po_this.bibtex ) )
+                                        throw new Error( "BibJSON ID [" + i.id + "] not found in BibTeX source, data sources seems not be synchronized" );
+                                   return i; 
+                               }
+                             : function(i) { return i; };
 
 
         // clear dom element and iterate over all bibjson data
         po_this.dom.empty();
         Object.values( po_this.bibjson )
 
+        // check all existing entries within BibTex (only if exists)
+        .map( lo_bibtexcheck )
+
         // create list with meta-data
-        .forEach(function( po_item ) { po_this.dom.append( format_entry( po_this, po_item, lo_executer ) ); });
+        .forEach(function( i ) { po_this.dom.append( format_entry( po_this, lo_idgenerator, i ) ); });
 
         // execute finisher iif exist
         if ( typeof( po_this.settings.callbackFinish ) === "function" )
@@ -345,16 +308,16 @@
     /**
      * format function for a BibJSON object
      * 
-     * @param po_this plugin reference 
+     * @param po_this plugin reference
+     * @param po_idgenerator id generator 
      * @param po_item BibJSON object
-     * @param po_executer object with executer functions
      * @return DOM entry
      */
-    var format_entry = function ( po_this, po_item, po_executer ) {
-        var lo_dom = po_executer.entry( po_item );
+    var format_entry = function ( po_this, po_idgenerator, po_item ) {
+        var lo_dom = po_this.settings.callbackEntryGenerator( po_item );
 
         lo_dom.attr("data-" + po_this.settings.datafield, po_item.id );
-        lo_dom.attr( "id", po_executer.id( po_item.id ) );
+        lo_dom.attr( "id", po_idgenerator( po_item.id ) );
         
         if (po_item["type"])
             lo_dom.addClass( po_item["type"].replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_") );
@@ -362,9 +325,14 @@
         if ( po_this.settings.cssentry )
              lo_dom.addClass( po_this.settings.cssentry );
         
-        po_this.settings.callbackFormatOrder
-                        .filter(function(i) { return (i !== "id" ) && ( i !== "entry" ); })
-                        .forEach(function(i) { po_executer[i]( lo_dom, po_this, po_item ); });
+
+        Object.values(po_this.settings.callbackEntry).forEach(function(i) {
+            var lo = i( po_this, po_item );
+            if ( !lo )
+                return;
+
+            lo_dom.append(" ").append( lo );             
+        });
 
         return lo_dom;
     }
