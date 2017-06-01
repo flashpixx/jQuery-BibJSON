@@ -10,9 +10,18 @@
   li:nth-child(odd) {
     background-color: #ddd;
   }
+
+  li:after {
+    clear: both;
+  }
   
-  .title, .author, .editor {
+  .title, .author {
     display: block;
+  }
+
+  .editor {
+    float: left;
+    word-break: break-all;
   }
 
   .bibtex {
