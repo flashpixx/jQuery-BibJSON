@@ -26,6 +26,7 @@ jQuery(function() {
             var lo_all = new Clipboard("#giveall", { text : function() {
                 return jQuery(".visible > a").map(function(i, po) { return jQuery(po).data("clipboard-text"); }).get().join("\n");
             }});
+            lo_all.on("success", function(po) { alert("BibTeX Entries copied to Clipboard"); po.clearSelection(); });
 
             // set clipboard for bibtex button
             var lo = new Clipboard(".bibtex"); 
