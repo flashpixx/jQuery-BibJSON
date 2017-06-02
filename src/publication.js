@@ -59,8 +59,11 @@
 
 
 
-        // css class name to show items
+        // css class name to hide items
         csshidden : "hidden",
+
+        // css class nem to show items
+        cssvisible : "visible",
         
         // css class name of each publication entry
         cssentry  : "publication",
@@ -245,9 +248,11 @@
                     return;
 
                 if ( lo_filter( i ) )
-                    jQuery( "#" + lc_id ).removeClass( self.settings.csshidden );
+                    jQuery( "#" + lc_id ).removeClass( self.settings.csshidden )
+                                         .addClass( self.settings.cssvisible );
                 else
-                    jQuery( "#" + lc_id ).addClass( self.settings.csshidden );    
+                    jQuery( "#" + lc_id ).addClass( self.settings.csshidden )
+                                         .removeClass( self.settings.cssvisible );    
             });
 
             return this;
@@ -346,14 +351,13 @@
     var format_entry = function ( po_this, po_idgenerator, po_item ) {
         var lo_dom = po_this.settings.callbackEntryGenerator( po_item );
 
-        lo_dom.attr("data-" + po_this.settings.datafield, po_item.id );
-        lo_dom.attr( "id", po_idgenerator( po_item.id ) );
+        lo_dom.attr("data-" + po_this.settings.datafield, po_item.id )
+              .attr( "id", po_idgenerator( po_item.id ) )
+              .addClass( po_this.settings.cssentry )
+              .addClass( po_this.settings.cssvisible );
         
         if (po_item["type"])
             lo_dom.addClass( po_item["type"].replace(/[^a-z0-9\-_]|^[^a-z]+/gi, "_") );
-        
-        if ( po_this.settings.cssentry )
-             lo_dom.addClass( po_this.settings.cssentry );
         
 
         Object.values(po_this.settings.callbackEntry).forEach(function(i) {

@@ -1,20 +1,22 @@
-  .hidden {
-      display: none;
-  }
+
 
   li {
     margin-top: 1em;
     margin-bottom: 1m;
   }
 
-  li:nth-child(odd) {
-    background-color: #ddd;
-  }
-
   li:after {
     clear: both;
   }
-  
+
+  .hidden {
+      display: none;
+  }
+
+  .visible:nth-of-type(even) {
+    background-color: #ddd;
+  }
+
   .title, .author {
     display: block;
   }
