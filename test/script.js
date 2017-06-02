@@ -22,6 +22,11 @@ jQuery(function() {
         // callback of finisher, after all entries are added to the DOM
         callbackFinish : function( po_this ) { 
 
+            // give-all items
+            var lo_all = new Clipboard("#giveall", { text : function() {
+                return jQuery(".visible > a").map(function(i, po) { return jQuery(po).data("clipboard-text"); }).get().join("\n");
+            }});
+
             // set clipboard for bibtex button
             var lo = new Clipboard(".bibtex"); 
             lo.on("success", function(po) { alert("BibTeX Entry copied to Clipboard"); po.clearSelection(); });
