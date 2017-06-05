@@ -1,6 +1,6 @@
+"use strict";
 jQuery(function() {
     var ln_sort = 1;
-
 
     // create publication list
     jQuery("#publication").publication({
@@ -42,17 +42,21 @@ jQuery(function() {
         var lc = jQuery(this).val();
         
         if ( ( !lc ) || ( lc.length < 3 ) )
+            // remove all filters
             jQuery("#publication").publication().filter();
         else
         {
+            // split searched text at any space
             var la = lc.split(/(\s+)/).filter( function(i) { return i.trim().length > 0; } );
 
+            // on title, publisher and collection-title try to do an and-searching of text elements
             jQuery("#publication").publication().filter( function(po) {
                 return ["title", "publisher", "collection-title"].some(function(j) {
                     return po[j] && la.every(function(i){ 
                         return po[j].toLowerCase().indexOf( i.toLowerCase() ) != -1;
                      });
                 })
+                // on author or editor try to do an or-searching
                 || ["author", "editor"].some(function(j) {
                     return po[j] && la.some(function(i){
                         return po[j].some(function(n) { return n.family && n.family.toLowerCase().indexOf( i.toLowerCase() ) != -1; });
