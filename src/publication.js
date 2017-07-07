@@ -71,6 +71,9 @@
         // data-field name to store the BibTeX ID
         datafield : "bibtexid",
 
+        // cross-domain ajax request
+        crossdomain: false,
+
 
 
         // callback to generate a publication entry
@@ -206,7 +209,7 @@
             var self = this;
 
             if ( self.settings.bibjson )
-                jQuery.ajax({ url: self.settings.bibjson, datatype : "json" })
+                jQuery.ajax({ url: self.settings.bibjson, datatype : "json", crossdomain: self.settings.crossdomain })
                       .done( function( pa_data ) { 
                           self.bibjson = {};
                           pa_data.forEach( function(i) { self.bibjson[i.id] = i;  }) 
