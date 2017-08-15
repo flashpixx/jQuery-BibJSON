@@ -38,6 +38,7 @@ The plugin is bind to the DOM element ```#publication``` (an ```<ol>``` list ele
 | callbackIDGenerator    | Yes      | Callback function with one parameter (the plugin reference) which creates a callback function with one parameter to generate the DOM element ID of a publication entry, default ```<ID of the publication DOM element>-<CSS formated BibTeX ID>``` | 
 | callbackFinish         | No       | Callback function with one parameter, that contains the plugin instance, e.g. for building clipboard export, default is not set |
 | callbackEntry          | No       | A JSON object with callback function |
+| crossdomain            | No       | Enables Ajax cross-domain access, default ```false```|
 
 
 ## Testing
